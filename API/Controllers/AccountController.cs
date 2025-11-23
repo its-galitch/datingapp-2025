@@ -1,6 +1,5 @@
 using System.Security.Cryptography;
 using API.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using API.Entities;
 using System.Text;
@@ -12,16 +11,14 @@ using API.Extensions;
 namespace API.Controllers
 {
 
-    [ApiController]
-    [Route("api/[controller]")]
+    
     public class AccountController(
         AppDbContext context, 
         ITokenService tokenService
-        ) : ControllerBase
-    // public class AccountContoller(AppDbContext context) : BaseApiController
+        ) : BaseApiController
     {
         [HttpPost("register")] // api/account/register
-        public async Task<ActionResult<UserDto>> Regster(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await EmailExists(registerDto.Email))
             {
