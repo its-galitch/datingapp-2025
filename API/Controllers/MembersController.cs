@@ -1,15 +1,15 @@
 using API.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using API.Entitites;
+using API.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MembersController(AppDbContext context) : ControllerBase
+    [Authorize]
+    public class MembersController(AppDbContext context) : BaseApiController
     {
 
         [HttpGet]
@@ -25,7 +25,6 @@ namespace API.Controllers
             var member = await context.Users.FindAsync(id);
             if (member == null) return NotFound();
             return member;
-            // 0527627751 - רב פינחס ברים
         }
     }
 }
