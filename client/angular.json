@@ -7,7 +7,18 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "css"
+          "style": "css",
+          "skipTests": true,
+          "path": "src",
+          "inlineTemplate": false
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true,
+          "path": "src"
+        },
+        "@schematics/angular:service": {
+          "skipTests": true,
+          "path": "src"
         }
       },
       "root": "",
