@@ -10,11 +10,13 @@
           "style": "css",
           "skipTests": true,
           "path": "src",
-          "inlineTemplate": false
+          "inlineTemplate": false,
+          "standalone": true
         },
         "@schematics/angular:directive": {
           "skipTests": true,
-          "path": "src"
+          "path": "src",
+          "standalone": true
         },
         "@schematics/angular:service": {
           "skipTests": true,

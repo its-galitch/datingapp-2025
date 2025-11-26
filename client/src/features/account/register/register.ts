@@ -16,9 +16,12 @@ export class Register {
   readonly onCancel = output<void>();
 
   protected registerForm = new FormGroup({
-    displayName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    displayName: new FormControl<string>('',
+      { validators: [Validators.required, Validators.minLength(3)], nonNullable: true }),
+    email: new FormControl<string>('',
+      { validators: [Validators.required, Validators.email], nonNullable: true }),
+    password: new FormControl<string>('',
+      { validators: [Validators.required, Validators.minLength(6)], nonNullable: true }),
   });
 
   register() {

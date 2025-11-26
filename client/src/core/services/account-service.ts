@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, InjectionToken, signal } from '@angular/core';
-import { AppUser, RegisterCredentials } from '../models/user-models';
+import { AppUser, LoginCredentials, RegisterCredentials } from '../models/user-models';
 import { tap } from 'rxjs';
 
 export const BASE_API_URL = new InjectionToken<string>(
@@ -24,7 +24,7 @@ export class AccountService {
   readonly user = this.#user.asReadonly();
   readonly #storeUserKey = 'user';
 
-  login(credentials: { email: string, password: string }) {
+  login(credentials: LoginCredentials) {
     return this.#http.post<AppUser>(`${this.#baeApiUrl}/account/login`, credentials).pipe(
       tap(user => this.setCurrentUser(user))
     );

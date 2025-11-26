@@ -4,6 +4,7 @@ import { Register } from "../account/register/register";
 @Component({
   selector: 'app-home',
   imports: [Register],
+  standalone: true,
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
