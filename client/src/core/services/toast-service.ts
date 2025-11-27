@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
-  #sanitizer = inject(DomSanitizer);
 
   #createToastContainer(): HTMLElement {
     let container = document.getElementById('toast-container');
@@ -21,11 +19,17 @@ export class ToastService {
     const container = this.#createToastContainer();
     const toast = document.createElement('div');
     toast.classList.add('alert', alertClass, 'shadow-lg');
-    const innerHtml = `
-    <span>${message}</span>
-    <button class="btn btn-sm btn-ghost ml-4">x<button>
-    `;
-    toast.innerHTML = innerHtml;
+    const span = document.createElement('span');
+   span.textContent = message;
+    
+    const button = document.createElement('button');
+    button.className = 'btn btn-sm btn-ghost ml-4';
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      container.removeChild(toast);
+    });    
+    toast.appendChild(span);
+    toast.appendChild(button);
     toast.querySelector('button')!.addEventListener('click', () => {
       container.removeChild(toast);
     });

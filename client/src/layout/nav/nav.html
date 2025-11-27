@@ -35,11 +35,11 @@
             </div>
             }
             @else {
-            <form #loginForm="ngForm" (ngSubmit)="login()" class="flex items-center gap-3">
+            <form #loginForm="ngForm" (ngSubmit)="login()" (keyup.enter)="login()" class="flex items-center gap-3">
                 <input [(ngModel)]="email" required name="email" type="email" class="input" placeholder="Email">
                 <input [(ngModel)]="password" required name="password" type="password" class="input"
                     placeholder="Password">
-                <button class="btn" (keyup.enter)="login()">Login</button>
+                <button class="btn" type="submit">Login</button>
             </form>
             }
 

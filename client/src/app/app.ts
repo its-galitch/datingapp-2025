@@ -10,15 +10,11 @@ import { Nav } from "../layout/nav/nav";
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit{
+export class App {
   
   protected readonly title = signal('Dating App');
-  protected readonly members = signal<Array<any>>([]);
   protected readonly router = inject(Router);
   
-
-  async ngOnInit()  {
-  }
 
   
 

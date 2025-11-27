@@ -46,7 +46,7 @@ export class AccountService {
     .pipe(
       tap(user => this.setCurrentUser(user)),
       catchError(err => {
-        this.#toastService.error('Login failed: ' + err.error);
+        this.#toastService.error('Registration failed: ' + err.error);
         throw err;
       }
     ));
