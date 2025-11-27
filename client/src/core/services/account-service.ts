@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, InjectionToken, signal } from '@angular/core';
 import { AppUser, LoginCredentials, RegisterCredentials } from '../models/user-models';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
+import { ToastService } from './toast-service';
 
 export const BASE_API_URL = new InjectionToken<string>(
   'BASE_API_URL',
@@ -17,6 +18,7 @@ export class AccountService {
 
   #http = inject(HttpClient);
   #baeApiUrl = inject(BASE_API_URL);
+  #toastService = inject(ToastService);
 
 
 
@@ -26,8 +28,12 @@ export class AccountService {
 
   login(credentials: LoginCredentials) {
     return this.#http.post<AppUser>(`${this.#baeApiUrl}/account/login`, credentials).pipe(
-      tap(user => this.setCurrentUser(user))
-    );
+      tap(user => this.setCurrentUser(user)),
+      catchError(err => {
+        this.#toastService.error('Login failed: ' + err.error);
+        throw err;
+      }
+    ));
   }
 
   logout() {
@@ -37,7 +43,13 @@ export class AccountService {
 
   register(credentials: RegisterCredentials) {
     return this.#http.post<AppUser>(`${this.#baeApiUrl}/account/register`, credentials)
-    .pipe(tap(user => this.setCurrentUser(user)))
+    .pipe(
+      tap(user => this.setCurrentUser(user)),
+      catchError(err => {
+        this.#toastService.error('Registration failed: ' + err.error);
+        throw err;
+      }
+    ));
   }
 
   restoreUser() {

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from '../../../core/services/account-service';
+import { ToastService } from '../../../core/services/toast-service';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import { AccountService } from '../../../core/services/account-service';
 export class Register {
 
   #accountService = inject(AccountService);
+  #toastService = inject(ToastService);
 
   readonly onCancel = output<void>();
 
@@ -39,6 +41,7 @@ export class Register {
       next: () => {
         this.registerForm.reset();
         this.onCancel.emit();
+        this.#toastService.success('Registration successful');
       },
       error: (error) => {
         console.error('Registration failed', error);
