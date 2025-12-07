@@ -16,7 +16,7 @@ export class ServerError {
   protected readonly showDetailsToggle = () => this.showDetails.set(!this.showDetails());
 
   constructor() {
-    const navigation = this.#router.getCurrentNavigation();
+    const navigation = this.#router.currentNavigation();
     const error = navigation?.extras.state?.['error'] as ApiError;
     this.error.set(error);
     
